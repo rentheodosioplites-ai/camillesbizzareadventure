@@ -1,0 +1,806 @@
+/* 
+========================================
+CORE VARIABLES & RESET
+========================================
+*/
+:root {
+    /* THEME COLORS */
+    --bg-color: #050505;
+    /* Obsidian Dark */
+    --text-color: #1E90FF;
+    /* Electric Cobalt Blue */
+    --text-dim: #104e8b;
+    /* Dimmer Blue for borders/bg */
+    --accent-glow: #00bfff;
+    /* Lighter blue for intense glow */
+    --white: #ffffff;
+
+    /* FONTS */
+    --font-main: 'Share Tech Mono', monospace;
+    /* Tech/Terminal font */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+}
+
+/* ACCESSIBILITY: Skip Link (Hidden until focused) */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--text-color);
+    color: #000;
+    padding: 8px;
+    z-index: 9999;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+@keyframes textChromat {
+    0% {
+        text-shadow: 1px 0 rgba(255, 0, 0, 0.3), -1px 0 rgba(0, 0, 255, 0.3);
+    }
+
+    50% {
+        text-shadow: -1px 0 rgba(255, 0, 0, 0.3), 1px 0 rgba(0, 0, 255, 0.3);
+    }
+
+    100% {
+        text-shadow: 1px 0 rgba(255, 0, 0, 0.3), -1px 0 rgba(0, 0, 255, 0.3);
+    }
+}
+
+/* 
+========================================
+GRANULAR GLITCH EFFECTS 
+========================================
+*/
+
+/* 1. SECTION HEADERS (H2) - Static Glitch Style */
+h2.section-title {
+    position: relative;
+}
+
+
+
+/* 2. BODY TEXT (P, LI, Spans) */
+p,
+.frame-label,
+.entity-desc,
+.item-details h4 {
+    text-shadow: none;
+}
+
+/* Slightly different speed for variety */
+.item-details p,
+.story-summary p {
+    text-shadow: none;
+}
+
+/* 3. INTERACTIVE ELEMENTS (Links, Buttons) - Intense Glitch on Hover */
+
+.entity-card:hover h3 {
+    color: var(--white);
+    text-shadow: 0 0 10px var(--text-color);
+}
+
+
+/*
+========================================
+CUSTOM CURSOR
+========================================
+*/
+/* Simple crosshair cursor for the whole page */
+body {
+    cursor: crosshair;
+}
+
+/* "Targeting Reticle" style for clickable items. You can change this to a custom image*/
+a,
+button,
+.entity-card,
+.stat-frame {
+    cursor: pointer;
+}
+
+/*
+========================================
+CRT & BACKGROUND EFFECTS
+========================================
+*/
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    /* Let clicks pass through */
+    z-index: 999;
+    opacity: 0.6;
+}
+
+.flicker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 144, 255, 0.02);
+    pointer-events: none;
+    z-index: 998;
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.9;
+    }
+
+    5% {
+        opacity: 0.8;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0.9;
+    }
+}
+
+/* "Digital Dust" / "Digital Rain" Particles */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.rain-drop {
+    position: absolute;
+    background: linear-gradient(to bottom, transparent, var(--text-color));
+    animation: rainFall linear infinite;
+}
+
+@keyframes rainFall {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(110vh);
+        opacity: 0.2;
+    }
+}
+
+/*
+========================================
+BOOT SCREEN
+========================================
+*/
+#boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 2000;
+    padding: 40px;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.boot-text p {
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    opacity: 0;
+    /* Hidden initially, controlled by JS */
+    animation: typeReveal 0.05s forwards;
+}
+
+.hidden-content {
+    opacity: 0;
+}
+
+@keyframes typeReveal {
+    to {
+        opacity: 1;
+    }
+}
+
+/* 
+========================================
+HUD & SPLASH SCREEN
+========================================
+*/
+.hud-container {
+    position: relative;
+    max-width: 600px;
+    margin: 40px auto 0;
+}
+
+.hud-box {
+    position: relative;
+    border: 1px solid rgba(30, 144, 255, 0.3);
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    min-height: 300px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.splash-img {
+    width: 100%;
+    display: block;
+    opacity: 0.8;
+    filter: grayscale(80%) sepia(20%) hue-rotate(180deg);
+    /* Blue-ish tint */
+    transition: filter 0.5s;
+}
+
+.hud-box:hover .splash-img {
+    filter: grayscale(0%);
+}
+
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--text-color);
+    box-shadow: 0 0 10px var(--text-color);
+    animation: scanAnim 3s ease-in-out infinite;
+    z-index: 5;
+    opacity: 0.7;
+}
+
+@keyframes scanAnim {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+.hud-overlay-text {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border: 1px solid var(--text-dim);
+    gap: 15px;
+    width: calc(100% - 40px);
+}
+
+.hud-item {
+    margin-bottom: 0;
+    /* Handled by gap */
+    line-height: 1.5;
+}
+
+.blinking {
+    animation: blinkText 1s infinite;
+}
+
+@keyframes blinkText {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Corner Brackets */
+.corner-bracket {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-color);
+    transition: all 0.3s;
+}
+
+.top-left {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.top-right {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.bottom-left {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+}
+
+.bottom-right {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+.hud-box:hover .corner-bracket {
+    width: 30px;
+    height: 30px;
+    box-shadow: 0 0 10px var(--text-color);
+}
+
+
+/* 
+========================================
+LAYOUT UTILS
+========================================
+*/
+.terminal-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--text-dim);
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-shadow: 0 0 10px var(--text-color);
+    margin-top: 80px;
+}
+
+/* Scroll Reveal Animation Helper */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 
+========================================
+HEADER SECTION
+========================================
+*/
+.terminal-header {
+    text-align: center;
+    margin-bottom: 80px;
+    padding-top: 50px;
+}
+
+.glitch-title {
+    font-size: 3.5rem;
+    letter-spacing: 5px;
+    position: relative;
+    text-shadow: 0 0 20px var(--text-color);
+    margin-bottom: 10px;
+}
+
+/* Simple Glitch Effect */
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+}
+
+.glitch-title::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-1 3s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+    left: -2px;
+    text-shadow: -1px 0 blue;
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% {
+        clip: rect(20px, 9999px, 80px, 0);
+    }
+
+    20% {
+        clip: rect(90px, 9999px, 10px, 0);
+    }
+
+    100% {
+        clip: rect(40px, 9999px, 80px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(10px, 9999px, 90px, 0);
+    }
+
+    20% {
+        clip: rect(60px, 9999px, 10px, 0);
+    }
+
+    100% {
+        clip: rect(80px, 9999px, 20px, 0);
+    }
+}
+
+.subtitle {
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+/* 
+========================================
+STATS SECTION
+========================================
+*/
+/* 
+========================================
+STATS SECTION
+========================================
+*/
+.stats-floor {
+    margin-bottom: 100px;
+    /* Space between floors */
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    /* Increased gap */
+    flex-wrap: wrap;
+}
+
+.stat-frame {
+    border: 2px solid var(--text-dim);
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    /* Default to full width of container, limited by max-width */
+}
+
+/* Large Frames for Skills/Passives (Requested ~1100x900) */
+.large-frame {
+    max-width: 1100px;
+}
+
+.neon-border {
+    box-shadow: 0 0 10px var(--text-dim);
+    /* Static glow */
+    animation: pulseGlow 4s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 10px var(--text-dim);
+    }
+
+    100% {
+        box-shadow: 0 0 25px var(--text-color);
+        border-color: var(--text-color);
+    }
+}
+
+.frame-label {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: var(--bg-color);
+    padding: 0 10px;
+    color: var(--accent-glow);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.image-placeholder {
+    width: 100%;
+    /* Allow height to grow with image, but set min-height */
+    min-height: 900px;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Keep aspect ratio intact */
+    display: block;
+}
+
+/* Show text if no image */
+.image-placeholder .placeholder-text {
+    color: #333;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 20px;
+    border: 1px dashed #333;
+}
+
+/* 
+========================================
+RELATIONSHIP GRID
+========================================
+*/
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.entity-card {
+    border: 1px solid var(--text-dim);
+    padding: 30px;
+    background: rgba(30, 144, 255, 0.05);
+    /* Very faint blue fill */
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    /* Safety margin */
+}
+
+.entity-card:hover {
+    background: rgba(30, 144, 255, 0.2);
+    border-color: var(--text-color);
+    box-shadow: 0 0 15px var(--text-color);
+    transform: scale(1.05);
+}
+
+.entity-card h3 {
+    margin-bottom: 20px;
+    color: var(--white);
+    line-height: 1.4;
+}
+
+.entity-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* 
+========================================
+EQUIPMENT MANIFEST
+========================================
+*/
+.equipment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+.equipment-slot {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 1px solid #111;
+    padding-bottom: 40px;
+    padding-top: 30px;
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-placeholder {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+/* Floating animation for icons */
+.floating {
+    animation: floatAnim 3s ease-in-out infinite;
+}
+
+.floating.delay-1 {
+    animation-delay: 1s;
+}
+
+.floating.delay-2 {
+    animation-delay: 2s;
+}
+
+@keyframes floatAnim {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.item-details h4 {
+    color: var(--white);
+    margin-bottom: 5px;
+}
+
+.item-details p {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* 
+========================================
+FOOTER
+========================================
+*/
+.terminal-footer {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 2px solid var(--text-dim);
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.story-summary {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.story-summary h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.chapter-status-bar {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.glow-box {
+    box-shadow: 0 0 10px var(--text-dim);
+}
+
+.ao3-button {
+    display: inline-block;
+    text-decoration: none;
+    background: var(--text-color);
+    color: #000;
+    padding: 15px 30px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ao3-button:hover {
+    background: var(--accent-glow);
+    /* Brighter Blue (#00bfff) instead of white */
+    color: #000;
+    box-shadow: none;
+}
+
+.ao3-button .btn-decoration {
+    margin-left: 10px;
+}
+
+.copyright {
+    margin-top: 50px;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+/* 
+========================================
+RESPONSIVE
+========================================
+*/
+@media (max-width: 600px) {
+    .glitch-title {
+        font-size: 2.2rem;
+    }
+
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-frame {
+        width: 100%;
+    }
+}
