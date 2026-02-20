@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Character Terminal Archive for Camille - Limbus Company Fanfiction">
+
+    <!-- SECURITY: Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:;">
+
+    <title>PROJECT: CAMILLE - DATA ARCHIVE</title>
+    <!-- Link to the CSS file where all the styling lives -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts: Importing a tech-looking font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ACCESSIBILITY: Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
+
+    <!-- 
+    ========================================
+    BACKGROUND ANIMATION
+    ========================================
+    This div creates the "Digital Dust" particle effect in the background.
+    -->
+    <div id="particles"></div>
+
+    <!-- 
+    ========================================
+    CRT OVERLAY
+    ========================================
+    These divs create the screen flicker and scanline effects overlaying the entire site.
+    -->
+    <div class="scanlines"></div>
+    <div class="flicker-overlay"></div>
+
+    <!-- 
+    ========================================
+    BOOT SEQUENCE OVERLAY
+    ========================================
+    -->
+    <div id="boot-screen">
+        <div class="boot-text" id="boot-text-container">
+            <!-- Text injected via JS -->
+        </div>
+    </div>
+
+    <main id="main-content" class="terminal-container hidden-content">
+
+        <!-- 
+        ========================================
+        SECTION 1: HEADER & SPLASH
+        ========================================
+        -->
+        <header class="terminal-header fade-in-section">
+            <!-- EDIT TITLE HERE: The main title of the page -->
+            <h1 class="glitch-title" data-text="PROJECT: CAMILLE">PROJECT: CAMILLE</h1>
+            <p class="subtitle">DATA ARCHIVE // PROJECT MOOON // CLASSIFIED</p>
+
+            <!-- SCANNING HUD OVERLAY -->
+            <div class="hud-container">
+                <div class="hud-box">
+                    <img src="Campics/CamLevel74_pic.png" alt="Camille Splash Art" class="splash-img">
+                    <div class="scan-line"></div>
+                    <div class="hud-overlay-text">
+                        <span class="hud-item">TARGET: CAMILLE</span>
+                        <span class="hud-item blinking">STATUS: SCANNING...</span>
+                        <span class="hud-item">THREAT LEVEL: SOTC.</span>
+                    </div>
+                    <div class="corner-bracket top-left"></div>
+                    <div class="corner-bracket top-right"></div>
+                    <div class="corner-bracket bottom-left"></div>
+                    <div class="corner-bracket bottom-right"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 
+        ========================================
+        SECTION 2: STATS SECTION (Floors like this?)
+        ========================================
+        -->
+        <section id="stats" class="fade-in-section">
+
+            <!-- FLOOR 1: SKILLS -->
+            <div class="stats-floor">
+                <h2 class="section-title" data-text=">> COMBAT_SKILLS_MANIFEST">>> COMBAT_SKILLS_MANIFEST</h2>
+
+                <div class="stats-container">
+                    <!-- SKILL FRAME 1 -->
+                    <div class="stat-frame large-frame neon-border">
+                        <div class="frame-label">SKILL_SET_[I]</div>
+                        <div class="image-placeholder">
+                            <img src="Campics/CamL74_Skills.png" alt="Skill Set 1" class="stat-img">
+                        </div>
+                    </div>
+
+                    <!-- SKILL FRAME 2 -->
+                    <div class="stat-frame large-frame neon-border">
+                        <div class="frame-label">SKILL_SET_[II]</div>
+                        <div class="image-placeholder">
+                            <!-- Using same placeholder, user to replace -->
+                            <img src="Campics/CamL74_Skill1.png" alt="Skill Set 2" class="stat-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FLOOR 2: PASSIVES -->
+            <div class="stats-floor">
+                <h2 class="section-title" data-text=">> PASSIVE_ATTRIBUTION_LOG">>> PASSIVE_ATTRIBUTION_LOG</h2>
+
+                <div class="stats-container">
+                    <!-- PASSIVE FRAME 1 -->
+                    <div class="stat-frame large-frame neon-border">
+                        <div class="frame-label">PASSIVE_LOG_[I]</div>
+                        <div class="image-placeholder">
+                            <img src="Campics/CamL74_passive.png" alt="Passive Sheet 1" class="stat-img">
+                        </div>
+                    </div>
+
+                    <!-- PASSIVE FRAME 2 -->
+                    <div class="stat-frame large-frame neon-border">
+                        <div class="frame-label">PASSIVE_LOG_[II]</div>
+                        <div class="image-placeholder">
+                            <!-- Using same placeholder, user to replace -->
+                            <img src="Campics/CamL74_Passive0.png" alt="Passive Sheet 2" class="stat-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION 3: FACTION & RELATIONSHIP GRID
+        ========================================
+        -->
+        <section id="relations" class="fade-in-section">
+            <h2 class="section-title" data-text="> ENTITY_RELATIONS">> ENTITY_RELATIONS</h2>
+
+            <div class="grid-container">
+                <!-- CARD 1: LCB -->
+                <div class="entity-card">
+                    <h3>LCB</h3>
+                    <p class="entity-desc">Limbus Company Bus. Current affiliation. Volatile environment. Certain fish
+                        hates him, Sancho likes him.</p>
+                </div>
+
+                <!-- CARD 2: PAULA -->
+                <div class="entity-card">
+                    <h3>PAULA</h3>
+                    <p class="entity-desc">Key Associate. Status: Unofficial couple??.</p>
+                </div>
+
+                <!-- CARD 3: CINQ ASSOCIATION -->
+                <div class="entity-card">
+                    <h3>CINQ ASSOC.</h3>
+                    <p class="entity-desc">Former affiliation. Fired him. Ties severed(?), same as their lives.</p>
+                </div>
+
+                <!-- CARD 4: RESIGNED FIXERS -->
+                <div class="entity-card">
+                    <h3>RESIGNED CINQ FIXERS</h3>
+                    <p class="entity-desc">Loose collective. Current status: A lot of uhh unique characters who like
+                        Camille.</p>
+                </div>
+                <!-- CARD 5: MINA -->
+                <div class="entity-card">
+                    <h3>MINA.</h3>
+                    <p class="entity-desc">Unofficial adopted child of camilla, owes her life to him.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION 4: SHOP MANIFEST
+        ========================================
+        -->
+        <section id="equipment" class="fade-in-section">
+            <h2 class="section-title" data-text="> EQUIPMENT_MANIFEST">> SHOP_MANIFEST</h2>
+
+            <div class="equipment-grid">
+                <!-- SLOT 1 -->
+                <div class="equipment-slot">
+                    <div class="icon-box floating">
+                        <!-- EDIT ICON: Change 'src' to icon image -->
+                        <div class="icon-placeholder">[4]</div>
+                    </div>
+                    <div class="item-details">
+                        <!-- EDIT ITEM NAME -->
+                        <h4>LEVEL UP!</h4>
+                        <!-- EDIT DESCRIPTION -->
+                        <p>Self explanitory. [cost increases the higher Camille level will be.]</p>
+                    </div>
+                </div>
+
+                <!-- SLOT 2 -->
+                <div class="equipment-slot">
+                    <div class="icon-box floating delay-1">
+                        <div class="icon-placeholder">[16]</div>
+                    </div>
+                    <div class="item-details">
+                        <h4>UPGRADE PASSIVE!</h4>
+                        <p>Select a passive to upgrade. [Note if the 'selected' passive is already at the max level, said passive wont be upgraded]</p>
+                    </div>
+                </div>
+
+                <!-- SLOT 3 -->
+                <div class="equipment-slot">
+                    <div class="icon-box floating delay-2">
+                        <div class="icon-placeholder">[8]</div>
+                    </div>
+                    <div class="item-details">
+                        <h4>UPGRADE SKILL!</h4>
+                        <p>Select a skill to upgrade. [Note if the 'selected' skill is already at the max level, said skill wont be upgraded]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION 5: ARCHIVE FOOTER (AO3)
+        ========================================
+        -->
+        <footer class="terminal-footer fade-in-section">
+            <div class="story-summary">
+                <h3>> ARCHIVE_SUMMARY</h3>
+                <!-- EDIT SUMMARY HERE -->
+                <p>
+                    [Current Points: 20]
+                </p>
+            </div>
+
+            <!-- EDIT LATEST CHAPTER INFO HERE -->
+            <div class="chapter-status-bar glow-box">
+                STATUS: CHAPTER 21 - [A trip down the memory lane] LIVE
+            </div>
+
+            <div class="cta-container">
+                <!-- EDIT LINK HERE: Change 'href' to the new chapter URL -->
+                <a href="https://archiveofourown.org/works/77319471/chapters/202426171" target="_blank"
+                    class="ao3-button">
+                    <span class="btn-text">ACCESS AO3 DATABASE</span>
+                    <span class="btn-decoration">>>></span>
+                </a>
+            </div>
+
+            <div class="copyright">
+                &copy; SYSTEM_ADMIN // PROJECT_CAMILLE
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Link to the JavaScript file for animations and interactions -->
+    <script src="script.js"></script>
+</body>
+
+</html>
